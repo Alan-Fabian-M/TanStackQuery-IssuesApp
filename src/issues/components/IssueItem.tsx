@@ -27,7 +27,7 @@ export const IssueItem = ({ issue }: Props) => {
   }
 
   const presetData = () => {
-    queryClient.setQueryData(['issue', issue.number], issue, {
+    queryClient.setQueryData(['issues', issue.number], issue, {
       updatedAt: Date.now() + (1000 * 60)
     })
   }
