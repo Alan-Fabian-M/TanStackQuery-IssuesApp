@@ -5,7 +5,11 @@ import { GithubIssue, State } from "../interfaces";
 
 
 
-export const getIssues = async (state: State, selectedLabels: string[]): Promise<GithubIssue[]> => {
+export const getIssues = async (
+    state: State,
+    selectedLabels: string[],
+    page: number
+): Promise<GithubIssue[]> => {
 
     await sleep(1500);
 
@@ -20,11 +24,12 @@ export const getIssues = async (state: State, selectedLabels: string[]): Promise
     }
 
 
+    params.append('page', `${page}`)
+    params.append('per_page', '5')
+
+
     const { data } = await githubApi.get<GithubIssue[]>('/issues', {
-        params: {
-            state: state,
-            labels: selectedLabels.join(',')
-        },
+        params: params
     });
 
     return data;
